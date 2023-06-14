@@ -1,0 +1,21 @@
+.card {
+   width: 80%;
+   margin: 1rem auto;
+   background-image: linear-gradient(
+  20deg,
+  hsl(88deg 98% 43%) 0%,
+  hsl(115deg 60% 59%) 11%,
+  hsl(142deg 61% 57%) 19%,
+  hsl(160deg 65% 50%) 32%,
+  hsl(164deg 64% 43%) 51%,
+  hsl(172deg 62% 34%) 74%,
+  hsl(194deg 64% 27%) 100%
+);
+
+   border-radius: 2rem;
+}
+
+img {
+   height: 30rem;
+     
+}

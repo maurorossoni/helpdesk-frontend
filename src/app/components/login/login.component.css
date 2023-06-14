@@ -1,0 +1,51 @@
+.container {
+   height: 100%;
+   background-image: linear-gradient(
+  20deg,
+  hsl(88deg 98% 43%) 0%,
+  hsl(115deg 60% 59%) 11%,
+  hsl(142deg 61% 57%) 19%,
+  hsl(160deg 65% 50%) 32%,
+  hsl(164deg 64% 43%) 51%,
+  hsl(172deg 62% 34%) 74%,
+  hsl(194deg 64% 27%) 100%
+);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.form {
+   width: 30rem;
+   margin: auto;
+   background-color: #ffffff;
+   padding: 4rem 1rem;
+   border-radius: 1rem;
+}
+
+h1 {
+   width: 100%;
+   text-align: center;
+   color: rgb(0, 0, 0);
+}
+
+img {
+   height: 20rem;
+   width: 100%;
+   margin: 1.5rem auto 1.5rem auto;
+}
+
+.full-width {
+   width: 100%;
+}
+
+
+button {
+   margin-top: 1.5;
+}
+
+
+
+mat-icon {
+   opacity: .6;
+}
