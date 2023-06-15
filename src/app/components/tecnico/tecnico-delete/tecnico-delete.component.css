@@ -3,7 +3,7 @@
    margin: auto;
    padding: 1rem;
    border-radius: .6rem;
-}
+  }
 
 .fullWidth {
    width: 100%;
@@ -11,10 +11,11 @@
 
 h1, p {
    text-align: center;
+   color: white;
 }
 
 img {
-   height: 12rem;
+   height: 22rem;
    margin: auto;
 }
 

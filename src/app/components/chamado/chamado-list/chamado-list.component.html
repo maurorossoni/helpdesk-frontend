@@ -1,18 +1,18 @@
 <div class="container">
 
-   <h1>Listando chamados</h1>
-
+ 
    <button routerLink="create" class="mat-elevation-z8" mat-stroked-button color="primary">Novo chamado</button>
  
    <mat-form-field appearance="standard">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      <mat-label>Filtro</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 'Sem sistema!' " #input>
     </mat-form-field>
 
     <mat-radio-group color="primary">
       <mat-radio-button (click)="orderByStatus(0)" value="0">ABERTO</mat-radio-button>
       <mat-radio-button (click)="orderByStatus(1)" value="1">ANDAMENTO</mat-radio-button>
       <mat-radio-button (click)="orderByStatus(2)" value="2">ENCERRADO</mat-radio-button>
+      <mat-radio-button (click)="orderByStatus(0)" value="2">TODOS</mat-radio-button>
     </mat-radio-group>
 
    <div class="mat-elevation-z8">

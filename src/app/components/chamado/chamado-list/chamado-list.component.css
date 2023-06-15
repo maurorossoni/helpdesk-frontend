@@ -13,7 +13,7 @@ mat-form-field {
 
 button {
    width: 100%;
-}
+   }
 
 h1 {
    width: 100%;
@@ -22,11 +22,12 @@ h1 {
 }
 
 .edit {
-   color: rgb(0, 153, 255);
+   color: rgb(0, 1, 2);
+   
 }
 
 .delete {
-   color: red;
+   color: rgb(0, 0, 0);
 }
 
 mat-radio-group {
