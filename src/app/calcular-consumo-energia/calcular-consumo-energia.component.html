@@ -1,0 +1,64 @@
+<div class="container">
+  <h2>
+    <i class="energy-icon fa fa-bolt"></i>
+    <i class="energy-icon fab fa-angular"></i> <!-- Ícone do Angular -->
+    Calcular Consumo de Energia
+  </h2>
+
+  <div *ngIf="isLoading" class="loader">Carregando...</div>
+
+  <div class="consumo-form">
+    <form #form="ngForm" (ngSubmit)="calcularConsumo()">
+      <label class="checkbox-label">
+        <input 
+          type="checkbox" 
+          [(ngModel)]="selectAll" 
+          (change)="toggleSelectAll($event)" 
+          class="custom-checkbox" 
+        />
+        Selecionar Todos os Equipamentos
+      </label>
+
+      <div *ngFor="let equipamento of equipamentos" class="equipamento-item">
+        <label class="checkbox-label">
+          <input 
+            type="checkbox" 
+            [(ngModel)]="equipamento.selected" 
+            name="selected{{equipamento.id}}" 
+            [checked]="equipamento.selected !== undefined ? equipamento.selected : false" 
+            (change)="toggleEquipamentoSelection(equipamento)" 
+            class="custom-checkbox" 
+          />
+          {{ equipamento.nome }} ({{ equipamento.potencia }} kW)
+        </label>
+
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Tempo de uso (horas)</mat-label>
+          <input 
+            matInput 
+            type="number" 
+            [(ngModel)]="tempoUso[equipamento.id]" 
+            name="tempoUso{{equipamento.id}}"
+            [disabled]="!equipamento.selected"  
+            required 
+            placeholder="Insira o tempo de uso (horas)" 
+            (focus)="equipamento.selected = true" 
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary" class="calcular-button btn" type="submit" [disabled]="form.invalid || !temEquipamentoSelecionado()">Calcular Consumo</button>
+        <button mat-raised-button color="accent" class="btn" (click)="definirMetaConsumo()">Definir Meta de Consumo</button>
+        <button mat-raised-button color="warn" class="btn" (click)="resetarValores()">Resetar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Resultado deve aparecer abaixo dos botões -->
+  <div *ngIf="consumoTotal !== undefined" class="result-container" [ngClass]="{'active': showResults}">
+    <h3>Consumo Total: {{ consumoTotal | number: '1.2-2' }} kWh</h3>
+    <h3>Custo Total: R$ {{ custoTotal | number: '1.2-2' }}</h3>
+    <p>Valor do kWh: R$ {{ valorKwh | number: '1.2-5' }}</p>
+  </div>
+</div>

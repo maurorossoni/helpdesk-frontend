@@ -1,17 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-// Para trabalhar com formulários no Angular 12
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
-// Para realizar requisições HTTP
 import { HttpClientModule } from '@angular/common/http';
-
-// Imports para componentes do Angular Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -26,8 +19,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
-
-// Componentes do projeto
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -47,6 +38,9 @@ import { ChamadoListComponent } from './components/chamado/chamado-list/chamado-
 import { ChamadoCreateComponent } from './components/chamado/chamado-create/chamado-create.component';
 import { ChamadoUpdateComponent } from './components/chamado/chamado-update/chamado-update.component';
 import { ChamadoReadComponent } from './components/chamado/chamado-read/chamado-read.component';
+import { CalcularConsumoEnergiaComponent } from './calcular-consumo-energia/calcular-consumo-energia.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DialogResultComponent } from './dialog-result/dialog-result.component'; 
 
 @NgModule({
   declarations: [
@@ -66,18 +60,17 @@ import { ChamadoReadComponent } from './components/chamado/chamado-read/chamado-
     ChamadoListComponent,
     ChamadoCreateComponent,
     ChamadoUpdateComponent,
-    ChamadoReadComponent
+    ChamadoReadComponent,
+    CalcularConsumoEnergiaComponent,
+    DialogResultComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // Forms
     FormsModule,
     ReactiveFormsModule,
-    // Requisições http
     HttpClientModule,
-    // Angular Material
     MatFormFieldModule,
     MatPaginatorModule,
     MatCheckboxModule,
@@ -92,6 +85,7 @@ import { ChamadoReadComponent } from './components/chamado/chamado-read/chamado-
     MatIconModule,
     MatListModule,
     MatCardModule,
+    MatProgressSpinnerModule, // Adicione esta linha
     ToastrModule.forRoot({
       timeOut: 4000,
       closeButton: true,

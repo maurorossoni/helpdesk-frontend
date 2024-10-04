@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Resultado do Cálculo</h2>
+<div mat-dialog-content>
+  <p>Consumo Total: {{ data.consumoTotal | number: '1.2-2' }} kWh</p>
+  <p>Custo Total: R$ {{ data.custoTotal | number: '1.2-2' }}</p>
+  <p>Valor do kWh: R$ {{ data.valorKwh | number: '1.2-5' }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Fechar</button>
+</div>

@@ -1,0 +1,36 @@
+/* Estilos gerais para o diálogo */
+.mat-dialog-content {
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    font-size: 16px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+}
+
+/* Estilos para o título do diálogo */
+.mat-dialog-title {
+    background-color: #1976d2; /* Cor de fundo azul */
+    color: white; /* Cor do texto do título */
+    padding: 16px; /* Espaçamento interno */
+    text-align: center; /* Centralizar texto */
+}
+
+/* Estilos para o conteúdo do diálogo */
+.mat-dialog-content {
+    padding: 20px; /* Espaçamento interno do conteúdo */
+}
+
+/* Estilos para os botões de ação */
+.mat-dialog-actions {
+    display: flex; /* Flexbox para alinhamento */
+    justify-content: flex-end; /* Alinha os botões à direita */
+}
+
+/* Estilos para os botões */
+button.mat-button {
+    background-color: #1976d2; /* Cor do botão */
+    color: white; /* Cor do texto do botão */
+    margin: 0 8px; /* Margem entre os botões */
+}
+
+button.mat-button:hover {
+    background-color: #155a8a; /* Cor do botão ao passar o mouse */
+}

@@ -1,40 +1,62 @@
 <mat-drawer-container class="container" autosize>
-   <mat-drawer #drawer class="sidenav" mode="side">
-      <img src="assets/img/side-image.svg" alt="Imagem de navegação">
-      <mat-nav-list class="nav-list">
-         <a mat-list-item routerLink="home">
-            <i class="material-icons">home</i>
-            Inicio
-         </a>
-         <a mat-list-item routerLink="chamados">
-            <i class="material-icons">assignment</i>
-            Chamados
-         </a>
-         <a mat-list-item routerLink="tecnicos">
-            <i class="material-icons">people</i>
-            Técnicos
-         </a>
-         <a mat-list-item routerLink="clientes">
-            <i class="material-icons">person</i>
-            Clientes
-         </a>
-         <a mat-list-item href="" target="_blank">
-            <i class="material-icons">description</i>
-            Relatórios
-         </a>
-         <a mat-list-item (click)="logout()">
-            <i class="material-icons">logout</i>
-            Sair
-         </a>
-      </mat-nav-list>
-   </mat-drawer>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <img src="assets/img/side-image.svg" alt="Imagem de navegação">
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="home">
+        <i class="material-icons">home</i>
+        Início
+      </a>
+      <a mat-list-item routerLink="chamados">
+        <i class="material-icons">assignment</i>
+        Chamados
+      </a>
+      <a mat-list-item routerLink="tecnicos">
+        <i class="material-icons">people</i>
+        Técnicos
+      </a>
+      <a mat-list-item routerLink="clientes">
+        <i class="material-icons">person</i>
+        Clientes
+      </a>
+      <a mat-list-item href="" target="_blank">
+        <i class="material-icons">description</i>
+        Relatórios
+      </a>
+      <a mat-list-item (click)="toggleCalculadora()">
+        <i class="material-icons">bolt</i>
+        Calcular Consumo de Energia
+      </a>
 
-   <div class="sidenav-content">
-      <app-header></app-header>
-      <button class="menu mat-elevation-z8" (click)="drawer.toggle()" mat-icon-button>
-         <mat-icon>menu</mat-icon>
-      </button>
-      <router-outlet></router-outlet>
-   </div>
+      <!-- Botões compactos que aparecem ao clicar em "Calcular Consumo de Energia" -->
+      <div *ngIf="showCalculadora" style="padding-left: 20px;">
+        <button mat-button class="compact-button" routerLink="calcular-consumo-energia">
+          <i class="material-icons">calculate</i>
+          Efetuar Cálculo
+        </button>
 
+        <button mat-button class="compact-button" routerLink="manter-equipamento">
+          <i class="material-icons">settings</i>
+          Manter Equipamento
+        </button>
+
+        <button mat-button class="compact-button" routerLink="cadastro-equipamento">
+          <i class="material-icons">add_circle</i>
+          Cadastro Equipamento
+        </button>
+      </div>
+
+      <a mat-list-item (click)="logout()">
+        <i class="material-icons">logout</i>
+        Sair
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <app-header></app-header>
+    <button class="menu mat-elevation-z8" (click)="drawer.toggle()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <router-outlet></router-outlet>
+  </div>
 </mat-drawer-container>

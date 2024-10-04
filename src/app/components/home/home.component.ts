@@ -10,6 +10,10 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // Simula um carregamento de 2 segundos
+    setTimeout(() => {
+      document.querySelector('.loader')!.setAttribute('style', 'display: none;');
+      document.querySelector('.card')!.setAttribute('style', 'display: block;');
+    }, 2000);
   }
-
 }

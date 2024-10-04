@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+  showCalculadora = false;
 
   constructor(
     private router: Router,
@@ -16,12 +17,16 @@ export class NavComponent implements OnInit {
     private toast: ToastrService) { }
 
   ngOnInit(): void {
-    this.router.navigate(['home'])
+    this.router.navigate(['home']);
+  }
+
+  toggleCalculadora() {
+    this.showCalculadora = !this.showCalculadora;
   }
 
   logout() {
-    this.router.navigate(['login'])
+    this.router.navigate(['login']);
     this.authService.logout();
-    this.toast.info('Logout realizado com sucesso', 'Logout')
+    this.toast.info('Logout realizado com sucesso', 'Logout');
   }
 }

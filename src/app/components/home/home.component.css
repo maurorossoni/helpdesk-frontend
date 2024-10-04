@@ -2,20 +2,60 @@
    width: 80%;
    margin: 1rem auto;
    background-image: linear-gradient(
-  20deg,
-  hsl(88deg 98% 43%) 0%,
-  hsl(115deg 60% 59%) 11%,
-  hsl(142deg 61% 57%) 19%,
-  hsl(160deg 65% 50%) 32%,
-  hsl(164deg 64% 43%) 51%,
-  hsl(172deg 62% 34%) 74%,
-  hsl(194deg 64% 27%) 100%
-);
-
+      20deg,
+      hsl(88deg 98% 43%) 0%,
+      hsl(115deg 60% 59%) 11%,
+      hsl(142deg 61% 57%) 19%,
+      hsl(160deg 65% 50%) 32%,
+      hsl(164deg 64% 43%) 51%,
+      hsl(172deg 62% 34%) 74%,
+      hsl(194deg 64% 27%) 100%
+   );
    border-radius: 2rem;
+   display: none; /* Inicialmente oculto */
 }
 
 img {
    height: 30rem;
-     
+}
+
+.loader {
+    width: 5rem; /* Tamanho da bola */
+    height: 5rem; /* Tamanho da bola */
+    border-radius: 50%; /* Forma circular */
+    border: 8px solid transparent; /* Borda transparente */
+    border-top: 8px solid hsl(88deg 98% 43%); /* Cor do topo */
+    border-right: 8px solid hsl(115deg 60% 59%); /* Cor do lado direito */
+    border-bottom: 8px solid hsl(142deg 61% 57%); /* Cor do lado inferior */
+    border-left: 8px solid hsl(160deg 65% 50%); /* Cor do lado esquerdo */
+    animation: spin 1.5s linear infinite, pulse 1.5s ease-in-out infinite; /* Animações de rotação e pulsação */
+    position: absolute; /* Para centralizar */
+    top: 50%; /* Centraliza verticalmente */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta a posição para ficar no centro */
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1); /* Tamanho original */
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1); /* Aumenta um pouco */
+    }
+}
+
+.message {
+    text-align: center; /* Centraliza o texto */
+    margin-top: 1rem; /* Espaço acima da mensagem */
+    font-size: 1.2rem; /* Tamanho da fonte */
+    color: hsl(194deg 64% 27%); /* Cor da mensagem, você pode ajustar como quiser */
 }
