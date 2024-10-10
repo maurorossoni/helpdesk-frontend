@@ -1,0 +1,35 @@
+<div class="fatura-container">
+    <h2>Fatura de Consumo de Energia</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Equipamento</th>
+                <th>Potência (kW)</th>
+                <th>Horas Utilizadas</th>
+                <th>Consumo (kWh)</th>
+                <th>Custo (R$)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let equipamento of equipamentos">
+                <tr *ngIf="equipamento.selected">
+                    <td>{{ equipamento.nome }}</td>
+                    <td>{{ equipamento.potencia }}</td>
+                    <td>{{ tempoUso[equipamento.id] || 0 }}</td>
+                    <td>{{ calcularConsumoArredondado(equipamento.potencia, tempoUso[equipamento.id]) }}</td>
+                    <td>{{ calcularCustoArredondado(equipamento.potencia, tempoUso[equipamento.id]) }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"><strong>Total</strong></td>
+                <td><strong>{{ arredondarConsumoTotal() }}</strong></td>
+                <td><strong>{{ arredondarCustoTotal() }}</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+    <button class="btn" (click)="voltar()">Voltar</button>
+    <button class="btn" (click)="otimizarComRedeNeural()">Otimizar Consumo</button>
+    <button class="btn" (click)="definirMetaConsumo()">Definir Meta de Consumo</button>
+</div>

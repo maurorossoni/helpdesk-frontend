@@ -1,30 +1,28 @@
 <div class="container">
-  <h2><span class="energy-icon">⚡</span>Calcular Consumo de Energia</h2>
-  <div>
-      <label class="custom-checkbox">
-          <input type="checkbox" (change)="toggleSelectAll($event)" />
-          <span class="checkmark"></span>
-          Selecionar Todos
-      </label>
-  </div>
-  <div class="equipamentos">
-      <div *ngFor="let equipamento of equipamentos" class="equipamento-item">
-          <label class="custom-checkbox">
-              <input type="checkbox" [(ngModel)]="equipamento.selected" (change)="toggleEquipamentoSelection(equipamento)" />
-              <span class="checkmark"></span>
-              {{ equipamento.nome }} ({{ equipamento.potencia }} kW)
-          </label>
-          <input type="number" class="input-horas" [(ngModel)]="tempoUso[equipamento.id]" placeholder="Horas" />
-      </div>
-  </div>
-  <div>
-      <button class="btn" (click)="calcularConsumo()">Calcular Consumo</button>
-      <button class="btn" (click)="definirMetaConsumo()">Definir Meta de Consumo</button>
-      <button class="btn" (click)="otimizarComRedeNeural()">Otimizar Consumo</button>
-      <button class="btn" (click)="resetarValores()">Resetar</button>
-  </div>
-  <div *ngIf="showResults" class="result-container">
-      <p class="resultado">Consumo Total: {{ consumoTotal.toFixed(2) }} kWh</p>
-      <p class="resultado">Custo Total: R$ {{ custoTotal.toFixed(2) }}</p>
-  </div>
+    <h2><span class="energy-icon">⚡</span>Calcular Consumo de Energia</h2>
+    <div>
+        <label class="custom-checkbox">
+            <input type="checkbox" (change)="toggleSelectAll($event)" />
+            <span class="checkmark"></span>
+            Selecionar Todos
+        </label>
+    </div>
+    <div class="equipamentos">
+        <div *ngFor="let equipamento of equipamentos" class="equipamento-item">
+            <label class="custom-checkbox">
+                <input type="checkbox" [(ngModel)]="equipamento.selected" (change)="toggleEquipamentoSelection(equipamento)" />
+                <span class="checkmark"></span>
+                {{ equipamento.nome }} ({{ equipamento.potencia }} kW)
+            </label>
+            <input type="number" class="input-horas" [(ngModel)]="tempoUso[equipamento.id]" placeholder="Horas" />
+        </div>
+    </div>
+    <div>
+        <button class="btn" (click)="calcularConsumo()">Calcular Consumo</button>
+        <button class="btn" (click)="resetarValores()">Resetar</button>
+    </div>
+    <div *ngIf="showResults" class="result-container">
+        <p class="resultado">Consumo Total: {{ consumoTotal.toFixed(2) }} kWh</p>
+        <p class="resultado">Custo Total: R$ {{ custoTotal.toFixed(2) }}</p>
+    </div>
 </div>

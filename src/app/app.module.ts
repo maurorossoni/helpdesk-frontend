@@ -40,7 +40,8 @@ import { ChamadoUpdateComponent } from './components/chamado/chamado-update/cham
 import { ChamadoReadComponent } from './components/chamado/chamado-read/chamado-read.component';
 import { CalcularConsumoEnergiaComponent } from './components/calcular-consumo-energia/calcular-consumo-energia.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DialogResultComponent } from './dialog-result/dialog-result.component'; 
+import { DialogResultComponent } from './dialog-result/dialog-result.component';
+import { FaturaComponent } from './components/fatura/fatura.component'; 
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DialogResultComponent } from './dialog-result/dialog-result.component';
     ChamadoUpdateComponent,
     ChamadoReadComponent,
     CalcularConsumoEnergiaComponent,
-    DialogResultComponent
+    DialogResultComponent,
+    FaturaComponent
   ],
   imports: [
     BrowserModule,
