@@ -38,7 +38,7 @@ import { ChamadoListComponent } from './components/chamado/chamado-list/chamado-
 import { ChamadoCreateComponent } from './components/chamado/chamado-create/chamado-create.component';
 import { ChamadoUpdateComponent } from './components/chamado/chamado-update/chamado-update.component';
 import { ChamadoReadComponent } from './components/chamado/chamado-read/chamado-read.component';
-import { CalcularConsumoEnergiaComponent } from './calcular-consumo-energia/calcular-consumo-energia.component';
+import { CalcularConsumoEnergiaComponent } from './components/calcular-consumo-energia/calcular-consumo-energia.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DialogResultComponent } from './dialog-result/dialog-result.component'; 
 

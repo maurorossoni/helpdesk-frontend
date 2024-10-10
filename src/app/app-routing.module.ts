@@ -16,7 +16,7 @@ import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecn
 import { TecnicoDeleteComponent } from './components/tecnico/tecnico-delete/tecnico-delete.component';
 import { TecnicoListComponent } from './components/tecnico/tecnico-list/tecnico-list.component';
 import { TecnicoUpdateComponent } from './components/tecnico/tecnico-update/tecnico-update.component';
-import { CalcularConsumoEnergiaComponent } from './calcular-consumo-energia/calcular-consumo-energia.component'; // Importação do novo componente
+import { CalcularConsumoEnergiaComponent } from './components/calcular-consumo-energia/calcular-consumo-energia.component'; // Importação do novo componente
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
