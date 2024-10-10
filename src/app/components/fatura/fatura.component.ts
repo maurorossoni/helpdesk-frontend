@@ -13,7 +13,10 @@ export class FaturaComponent implements OnInit {
     tempoUso: { [id: number]: number } = {}; // Dicionário para armazenar o tempo de uso
     valorKwh: number = 0.59290; // Valor do kWh
     metaConsumo: number = 0; // Meta de consumo definida pelo usuário
+    metaInput: number = 0; // Valor inserido pelo usuário no modal
     metaDefinida: boolean = false; // Controle para exibir o botão "Otimizar Consumo"
+    mostrarModal: boolean = false; // Controle para exibir o modal
+    mensagem: string = ''; // Mensagem de sucesso para notificação
 
     constructor(private route: ActivatedRoute) { }
 
@@ -67,17 +70,24 @@ export class FaturaComponent implements OnInit {
         return `R$ ${totalCustoMensal.toFixed(2)}`; // Duas casas decimais com R$
     }
 
-    // Método para definir a meta de consumo
-    definirMetaConsumo(): void {
-        const inputMetaConsumo = prompt("Defina a meta de consumo ideal em kWh (mensal):");
-        const metaValor = parseFloat(inputMetaConsumo || '');
+    // Funções do modal
+    abrirModal(): void {
+        this.mostrarModal = true; // Exibe o modal
+    }
 
-        if (!isNaN(metaValor) && metaValor > 0) {
-            this.metaConsumo = metaValor;
-            this.metaDefinida = true; // Meta foi definida, habilitar o botão de otimização
-            alert(`Meta de consumo definida para ${this.metaConsumo} kWh.`);
+    fecharModal(): void {
+        this.mostrarModal = false; // Esconde o modal
+    }
+
+    // Método para definir a meta de consumo
+    confirmarMeta(): void {
+        if (this.metaInput > 0) {
+            this.metaConsumo = this.metaInput;
+            this.metaDefinida = true;
+            this.fecharModal();
+            this.mostrarMensagem(`Meta de consumo definida para ${this.metaConsumo} kWh.`);
         } else {
-            alert("Por favor, insira um valor válido para a meta de consumo.");
+            this.mostrarMensagem("Por favor, insira um valor válido para a meta de consumo.");
         }
     }
 
@@ -104,9 +114,17 @@ export class FaturaComponent implements OnInit {
                 }
             });
 
-            alert('O consumo foi otimizado para atender à meta definida.');
+            this.mostrarMensagem('O consumo foi otimizado para atender à meta definida.');
         } else {
-            alert('O consumo já está dentro da meta.');
+            this.mostrarMensagem('O consumo já está dentro da meta.');
         }
+    }
+
+    // Função para exibir a mensagem de notificação
+    mostrarMensagem(msg: string): void {
+        this.mensagem = msg;
+        setTimeout(() => {
+            this.mensagem = ''; // Esconde a notificação após 5 segundos
+        }, 5000);
     }
 }

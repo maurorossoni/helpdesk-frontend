@@ -8,7 +8,7 @@
     border-radius: 12px;
     background-color: #f9f9f9;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    font-family: 'Roboto', sans-serif; /* Aplicando a fonte Roboto */
+    font-family: 'Roboto', sans-serif;
 }
 
 h2 {
@@ -91,4 +91,98 @@ button:active {
     color: #fdd835;
     font-size: 24px;
     vertical-align: middle;
+}
+
+/* Estilo do modal */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: #4caf50;
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-actions .btn {
+    width: 45%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-actions .btn:hover {
+    background-color: #45a049;
+}
+
+.modal-actions .btn.cancel {
+    background-color: #f44336;
+}
+
+.modal-actions .btn.cancel:hover {
+    background-color: #e53935;
+}
+
+.notification {
+    position: fixed;
+    top: 20px; /* Altera para a parte superior */
+    right: 20px; /* Mantém no lado direito */
+    background-color: #4caf50;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s; /* Aparece e desaparece */
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }

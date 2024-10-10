@@ -31,7 +31,25 @@
     </table>
     <div class="button-group">
         <button class="btn" (click)="voltar()">Voltar</button>
-        <button class="btn" (click)="definirMetaConsumo()">Definir Meta de Consumo</button>
+        <button class="btn" (click)="abrirModal()">Definir Meta de Consumo</button>
         <button class="btn" *ngIf="metaDefinida" (click)="otimizarComRedeNeural()">Otimizar Consumo</button>
     </div>
+</div>
+
+<!-- Modal para definir a meta de consumo -->
+<div class="modal" *ngIf="mostrarModal">
+    <div class="modal-content">
+        <h3>Definir Meta de Consumo</h3>
+        <label for="metaConsumo">Digite a meta de consumo ideal em kWh (mensal):</label>
+        <input type="number" id="metaConsumo" [(ngModel)]="metaInput" placeholder="Meta em kWh">
+        <div class="modal-actions">
+            <button class="btn" (click)="confirmarMeta()">Confirmar</button>
+            <button class="btn cancel" (click)="fecharModal()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Notificação de sucesso -->
+<div class="notification" *ngIf="mensagem">
+    {{ mensagem }}
 </div>
