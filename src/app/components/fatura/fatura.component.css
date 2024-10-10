@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 .fatura-container {
     max-width: 700px;
     margin: 20px auto;
@@ -6,7 +8,7 @@
     border-radius: 12px;
     background-color: #f9f9f9;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; /* Aplicando a fonte Roboto */
 }
 
 h2 {

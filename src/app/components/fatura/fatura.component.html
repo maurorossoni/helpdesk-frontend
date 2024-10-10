@@ -6,8 +6,8 @@
                 <th>Equipamento</th>
                 <th>Potência (kW)</th>
                 <th>Horas Utilizadas</th>
-                <th>Consumo (kWh)</th>
-                <th>Custo (R$)</th>
+                <th>Consumo Mensal (kWh)</th>
+                <th>Custo Mensal (R$)</th>
             </tr>
         </thead>
         <tbody>
@@ -16,20 +16,22 @@
                     <td>{{ equipamento.nome }}</td>
                     <td>{{ equipamento.potencia }}</td>
                     <td>{{ tempoUso[equipamento.id] || 0 }}</td>
-                    <td>{{ calcularConsumoArredondado(equipamento.potencia, tempoUso[equipamento.id]) }}</td>
-                    <td>{{ calcularCustoArredondado(equipamento.potencia, tempoUso[equipamento.id]) }}</td>
+                    <td>{{ calcularConsumoMensal(equipamento.potencia, tempoUso[equipamento.id]).toFixed(2) }}</td>
+                    <td>{{ calcularCustoMensal(equipamento.potencia, tempoUso[equipamento.id]).toFixed(2) }}</td>
                 </tr>
             </ng-container>
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="3"><strong>Total</strong></td>
-                <td><strong>{{ arredondarConsumoTotal() }}</strong></td>
-                <td><strong>{{ arredondarCustoTotal() }}</strong></td>
+                <td><strong>{{ arredondarConsumoTotalMensal() }}</strong></td>
+                <td><strong>{{ arredondarCustoTotalMensal() }}</strong></td>
             </tr>
         </tfoot>
     </table>
-    <button class="btn" (click)="voltar()">Voltar</button>
-    <button class="btn" (click)="otimizarComRedeNeural()">Otimizar Consumo</button>
-    <button class="btn" (click)="definirMetaConsumo()">Definir Meta de Consumo</button>
+    <div class="button-group">
+        <button class="btn" (click)="voltar()">Voltar</button>
+        <button class="btn" (click)="definirMetaConsumo()">Definir Meta de Consumo</button>
+        <button class="btn" *ngIf="metaDefinida" (click)="otimizarComRedeNeural()">Otimizar Consumo</button>
+    </div>
 </div>

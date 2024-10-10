@@ -13,6 +13,7 @@ export class FaturaComponent implements OnInit {
     tempoUso: { [id: number]: number } = {}; // Dicionário para armazenar o tempo de uso
     valorKwh: number = 0.59290; // Valor do kWh
     metaConsumo: number = 0; // Meta de consumo definida pelo usuário
+    metaDefinida: boolean = false; // Controle para exibir o botão "Otimizar Consumo"
 
     constructor(private route: ActivatedRoute) { }
 
@@ -35,41 +36,77 @@ export class FaturaComponent implements OnInit {
         window.history.back(); // Volta para a página anterior
     }
 
-    // Métodos para calcular os valores arredondados
-    calcularConsumoArredondado(potencia: number, horas: number): number {
-        return Math.floor((potencia * (horas || 0)) / 1000); // Calcular em kWh
+    // Métodos para calcular o consumo diário e mensal
+    calcularConsumoDiario(potencia: number, horas: number): number {
+        return (potencia * (horas || 0)) / 1000; // Consumo diário em kWh
     }
 
-    calcularCustoArredondado(potencia: number, horas: number, valorKwh: number = this.valorKwh): number {
-        return Math.floor(this.calcularConsumoArredondado(potencia, horas) * valorKwh);
+    calcularConsumoMensal(potencia: number, horas: number): number {
+        const consumoDiario = this.calcularConsumoDiario(potencia, horas);
+        return consumoDiario * 30; // Multiplicando por 30 para obter o consumo mensal
     }
 
-    // Métodos para arredondar o consumo e custo totais
-    arredondarConsumoTotal(): number {
-        return Math.floor(this.consumoTotal);
+    calcularCustoMensal(potencia: number, horas: number, valorKwh: number = this.valorKwh): number {
+        const consumoMensal = this.calcularConsumoMensal(potencia, horas);
+        return consumoMensal * valorKwh; // Custo mensal
     }
 
-    arredondarCustoTotal(): number {
-        return Math.floor(this.custoTotal);
+    arredondarConsumoTotalMensal(): string {
+        let totalConsumoMensal = 0;
+        this.equipamentos.forEach(equipamento => {
+            totalConsumoMensal += this.calcularConsumoMensal(equipamento.potencia, this.tempoUso[equipamento.id]);
+        });
+        return totalConsumoMensal.toFixed(2); // Duas casas decimais
+    }
+
+    arredondarCustoTotalMensal(): string {
+        let totalCustoMensal = 0;
+        this.equipamentos.forEach(equipamento => {
+            totalCustoMensal += this.calcularCustoMensal(equipamento.potencia, this.tempoUso[equipamento.id]);
+        });
+        return `R$ ${totalCustoMensal.toFixed(2)}`; // Duas casas decimais com R$
     }
 
     // Método para definir a meta de consumo
     definirMetaConsumo(): void {
-        const inputMetaConsumo = prompt("Defina a meta de consumo ideal em kWh:");
+        const inputMetaConsumo = prompt("Defina a meta de consumo ideal em kWh (mensal):");
         const metaValor = parseFloat(inputMetaConsumo || '');
 
         if (!isNaN(metaValor) && metaValor > 0) {
             this.metaConsumo = metaValor;
-            alert(`Meta de consumo definida para ${this.metaConsumo} kWh`);
-            this.otimizarComRedeNeural(); // Chama a otimização após definir a meta
+            this.metaDefinida = true; // Meta foi definida, habilitar o botão de otimização
+            alert(`Meta de consumo definida para ${this.metaConsumo} kWh.`);
         } else {
             alert("Por favor, insira um valor válido para a meta de consumo.");
         }
     }
 
-    // Método para otimizar consumo
+    // Método para otimizar o consumo
     otimizarComRedeNeural(): void {
-        // Sua lógica de otimização aqui (simulando com um alert por enquanto)
-        alert('Otimização concluída com base na meta de consumo definida.');
+        let totalConsumoMensal = parseFloat(this.arredondarConsumoTotalMensal());
+
+        if (totalConsumoMensal > this.metaConsumo) {
+            // Otimizar: Reduzir tempo de uso de aparelhos não essenciais
+            let margem = totalConsumoMensal - this.metaConsumo;
+            
+            this.equipamentos.forEach(equipamento => {
+                if (!equipamento.essencial && margem > 0) {
+                    const horasAtuais = this.tempoUso[equipamento.id] || 0;
+                    const consumoDiarioAtual = this.calcularConsumoDiario(equipamento.potencia, horasAtuais);
+                    const consumoMensalAtual = consumoDiarioAtual * 30;
+
+                    // Reduzir proporcionalmente o uso do equipamento
+                    if (consumoMensalAtual > margem) {
+                        const horasReduzidas = horasAtuais - (margem / equipamento.potencia * 1000);
+                        this.tempoUso[equipamento.id] = Math.max(0, horasReduzidas); // Não pode ser negativo
+                        margem -= consumoMensalAtual;
+                    }
+                }
+            });
+
+            alert('O consumo foi otimizado para atender à meta definida.');
+        } else {
+            alert('O consumo já está dentro da meta.');
+        }
     }
 }
