@@ -16,6 +16,7 @@ export class CalcularConsumoEnergiaComponent implements OnInit {
     valorKwh: number = 0.59290; 
     selectAll: boolean = false; 
     showResults: boolean = false; 
+    isLoading: boolean = false; // Controle de carregamento
 
     constructor(private equipamentoService: EquipamentoService, private router: Router) {}
 
@@ -48,26 +49,40 @@ export class CalcularConsumoEnergiaComponent implements OnInit {
         }
     }
 
-    calcularConsumo(): void {
-        this.consumoTotal = 0;
-        for (const equipamento of this.equipamentos) {
-            if (equipamento.selected) {
-                const tempo = this.tempoUso[equipamento.id] || 0;
-                this.consumoTotal += equipamento.potencia * tempo;
-            }
+    validarHoras(equipamento: Equipamento): void {
+        if (this.tempoUso[equipamento.id] > 24) {
+            this.tempoUso[equipamento.id] = 24; // Limitar a 24 horas
         }
-        this.custoTotal = this.consumoTotal * this.valorKwh;
-        this.showResults = true;
+        if (this.tempoUso[equipamento.id] < 0) {
+            this.tempoUso[equipamento.id] = 0; // Limitar a no mínimo 0 horas
+        }
+    }
+    
 
-        // Redireciona para a tela de fatura e passa também o dicionário de tempo de uso
-        this.router.navigate(['/fatura'], {
-            queryParams: {
-                consumoTotal: this.consumoTotal,
-                custoTotal: this.custoTotal,
-                equipamentos: JSON.stringify(this.equipamentos.filter(e => e.selected)),
-                tempoUso: JSON.stringify(this.tempoUso) // Passando o tempo de uso
+    calcularConsumo(): void {
+        this.isLoading = true; // Ativa o ícone de carregamento
+        setTimeout(() => {
+            this.consumoTotal = 0;
+            for (const equipamento of this.equipamentos) {
+                if (equipamento.selected) {
+                    const tempo = this.tempoUso[equipamento.id] || 0;
+                    this.consumoTotal += equipamento.potencia * tempo;
+                }
             }
-        });
+            this.custoTotal = this.consumoTotal * this.valorKwh;
+            this.showResults = true;
+            this.isLoading = false; // Desativa o ícone de carregamento
+
+            // Redireciona para a tela de fatura e passa também o dicionário de tempo de uso
+            this.router.navigate(['/fatura'], {
+                queryParams: {
+                    consumoTotal: this.consumoTotal,
+                    custoTotal: this.custoTotal,
+                    equipamentos: JSON.stringify(this.equipamentos.filter(e => e.selected)),
+                    tempoUso: JSON.stringify(this.tempoUso) // Passando o tempo de uso
+                }
+            });
+        }, 350); // Simulação de tempo de carregamento
     }
 
     resetarValores(): void {

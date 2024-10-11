@@ -1,5 +1,5 @@
 <div class="container">
-    <h2><span class="energy-icon">⚡</span>Calcular Consumo de Energia</h2>
+    <h2><span class="energy-icon">⚡</span> Calcular Consumo de Energia</h2>
     <div>
         <label class="custom-checkbox">
             <input type="checkbox" (change)="toggleSelectAll($event)" />
@@ -14,15 +14,18 @@
                 <span class="checkmark"></span>
                 {{ equipamento.nome }} ({{ equipamento.potencia }} kW)
             </label>
-            <input type="number" class="input-horas" [(ngModel)]="tempoUso[equipamento.id]" placeholder="Horas" />
+            <input type="number" class="input-horas" [(ngModel)]="tempoUso[equipamento.id]" placeholder="Horas" min="0" max="24" (input)="validarHoras(equipamento)" />
         </div>
     </div>
     <div>
         <button class="btn" (click)="calcularConsumo()">Calcular Consumo</button>
         <button class="btn" (click)="resetarValores()">Resetar</button>
     </div>
-    <div *ngIf="showResults" class="result-container">
-        <p class="resultado">Consumo Total: {{ consumoTotal.toFixed(2) }} kWh</p>
-        <p class="resultado">Custo Total: R$ {{ custoTotal.toFixed(2) }}</p>
+</div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" *ngIf="isLoading">
+    <div class="loading-icon-container">
+        <span class="energy-icon">⚡</span>
     </div>
 </div>
