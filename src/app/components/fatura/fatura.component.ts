@@ -86,37 +86,63 @@ export class FaturaComponent implements OnInit {
             this.metaDefinida = true;
             this.fecharModal();
             this.mostrarMensagem(`Meta de consumo definida para ${this.metaConsumo} kWh.`);
+            this.otimizarComRedeNeural();
         } else {
             this.mostrarMensagem("Por favor, insira um valor válido para a meta de consumo.");
         }
     }
 
-    // Método para otimizar o consumo
+    // Método para otimizar consumo com base na meta definida
     otimizarComRedeNeural(): void {
         let totalConsumoMensal = parseFloat(this.arredondarConsumoTotalMensal());
 
-        if (totalConsumoMensal > this.metaConsumo) {
-            // Otimizar: Reduzir tempo de uso de aparelhos não essenciais
-            let margem = totalConsumoMensal - this.metaConsumo;
-            
-            this.equipamentos.forEach(equipamento => {
-                if (!equipamento.essencial && margem > 0) {
-                    const horasAtuais = this.tempoUso[equipamento.id] || 0;
-                    const consumoDiarioAtual = this.calcularConsumoDiario(equipamento.potencia, horasAtuais);
-                    const consumoMensalAtual = consumoDiarioAtual * 30;
+        if (totalConsumoMensal <= this.metaConsumo) {
+            this.mostrarMensagem('O consumo já está dentro da meta.');
+            return;
+        }
 
-                    // Reduzir proporcionalmente o uso do equipamento
-                    if (consumoMensalAtual > margem) {
-                        const horasReduzidas = horasAtuais - (margem / equipamento.potencia * 1000);
-                        this.tempoUso[equipamento.id] = Math.max(0, horasReduzidas); // Não pode ser negativo
-                        margem -= consumoMensalAtual;
-                    }
+        let margem = totalConsumoMensal - this.metaConsumo;
+        const equipamentosEssenciais = ['Geladeira']; // Equipamentos essenciais que não podem ser alterados
+
+        let consumoProporcional = 0;
+
+        // Calcular a soma de todos os consumos não essenciais para ajuste proporcional
+        this.equipamentos.forEach(equipamento => {
+            if (!equipamentosEssenciais.includes(equipamento.nome)) {
+                consumoProporcional += this.calcularConsumoMensal(equipamento.potencia, this.tempoUso[equipamento.id]);
+            }
+        });
+
+        // Ajustar horas de uso proporcionalmente
+        this.equipamentos.forEach(equipamento => {
+            if (!equipamentosEssenciais.includes(equipamento.nome)) {
+                let horasAtuais = this.tempoUso[equipamento.id] || 0;
+                let consumoAtual = this.calcularConsumoMensal(equipamento.potencia, horasAtuais);
+                let fatorReducao = margem / consumoProporcional;
+
+                // Reduzir as horas proporcionalmente ao consumo
+                let horasReduzidas = horasAtuais - (horasAtuais * fatorReducao);
+
+                if (horasReduzidas < 1) {
+                    let minutos = Math.floor(horasReduzidas * 60);
+                    equipamento.horasDisplay = `${minutos} minutos`;
+                } else {
+                    equipamento.horasDisplay = horasReduzidas.toFixed(2);
                 }
-            });
 
+                this.tempoUso[equipamento.id] = horasReduzidas;
+            }
+        });
+
+        // Recalcular o consumo total após as reduções
+        totalConsumoMensal = this.equipamentos.reduce((total, equipamento) => {
+            return total + this.calcularConsumoMensal(equipamento.potencia, this.tempoUso[equipamento.id]);
+        }, 0);
+
+        if (totalConsumoMensal <= this.metaConsumo) {
             this.mostrarMensagem('O consumo foi otimizado para atender à meta definida.');
         } else {
-            this.mostrarMensagem('O consumo já está dentro da meta.');
+            this.mostrarMensagem('Não foi possível otimizar o consumo dentro da meta.');
         }
     }
 

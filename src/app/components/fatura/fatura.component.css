@@ -164,10 +164,11 @@ button:active {
     background-color: #e53935;
 }
 
+/* Notificação */
 .notification {
     position: fixed;
-    top: 20px; /* Altera para a parte superior */
-    right: 20px; /* Mantém no lado direito */
+    top: 20px; /* Exibir no canto superior direito */
+    right: 20px;
     background-color: #4caf50;
     color: white;
     padding: 15px;

@@ -15,7 +15,7 @@
                 <tr *ngIf="equipamento.selected">
                     <td>{{ equipamento.nome }}</td>
                     <td>{{ equipamento.potencia }}</td>
-                    <td>{{ tempoUso[equipamento.id] || 0 }}</td>
+                    <td>{{ equipamento.horasDisplay || (tempoUso[equipamento.id] || 0) }}</td>
                     <td>{{ calcularConsumoMensal(equipamento.potencia, tempoUso[equipamento.id]).toFixed(2) }}</td>
                     <td>{{ calcularCustoMensal(equipamento.potencia, tempoUso[equipamento.id]).toFixed(2) }}</td>
                 </tr>
