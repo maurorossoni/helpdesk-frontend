@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; 
 import { EquipamentoService } from '../../services/equipamento.service';
 import { Equipamento } from '../../models/equipamento';
+import { ToastrService } from 'ngx-toastr'; // Importa o Toastr
 
 @Component({
     selector: 'app-calcular-consumo-energia',
@@ -16,9 +17,13 @@ export class CalcularConsumoEnergiaComponent implements OnInit {
     valorKwh: number = 0.59290; 
     selectAll: boolean = false; 
     showResults: boolean = false; 
-    isLoading: boolean = false; // Controle de carregamento
+    isLoading: boolean = false; 
 
-    constructor(private equipamentoService: EquipamentoService, private router: Router) {}
+    constructor(
+      private equipamentoService: EquipamentoService, 
+      private router: Router,
+      private toastr: ToastrService // Injeta o serviço Toastr
+    ) {}
 
     ngOnInit(): void {
         this.loadEquipamentos(); 
@@ -57,32 +62,42 @@ export class CalcularConsumoEnergiaComponent implements OnInit {
             this.tempoUso[equipamento.id] = 0; // Limitar a no mínimo 0 horas
         }
     }
-    
 
     calcularConsumo(): void {
-        this.isLoading = true; // Ativa o ícone de carregamento
+        this.isLoading = true; 
         setTimeout(() => {
             this.consumoTotal = 0;
+            let validado = false;
             for (const equipamento of this.equipamentos) {
                 if (equipamento.selected) {
                     const tempo = this.tempoUso[equipamento.id] || 0;
+                    if (tempo === 0) {
+                        this.toastr.error('Insira o tempo de uso de todos os equipamentos selecionados', 'Erro!');
+                        validado = true;
+                        this.isLoading = false;
+                        return;
+                    }
                     this.consumoTotal += equipamento.potencia * tempo;
                 }
             }
-            this.custoTotal = this.consumoTotal * this.valorKwh;
-            this.showResults = true;
-            this.isLoading = false; // Desativa o ícone de carregamento
+            if (!validado) {
+                this.custoTotal = this.consumoTotal * this.valorKwh;
+                this.showResults = true;
+                this.isLoading = false; 
 
-            // Redireciona para a tela de fatura e passa também o dicionário de tempo de uso
-            this.router.navigate(['/fatura'], {
-                queryParams: {
-                    consumoTotal: this.consumoTotal,
-                    custoTotal: this.custoTotal,
-                    equipamentos: JSON.stringify(this.equipamentos.filter(e => e.selected)),
-                    tempoUso: JSON.stringify(this.tempoUso) // Passando o tempo de uso
-                }
-            });
-        }, 350); // Simulação de tempo de carregamento
+                this.toastr.success('Cálculo realizado com sucesso!', 'Sucesso!');
+
+                // Redireciona para a tela de fatura e passa o dicionário de tempo de uso
+                this.router.navigate(['/fatura'], {
+                    queryParams: {
+                        consumoTotal: this.consumoTotal,
+                        custoTotal: this.custoTotal,
+                        equipamentos: JSON.stringify(this.equipamentos.filter(e => e.selected)),
+                        tempoUso: JSON.stringify(this.tempoUso) 
+                    }
+                });
+            }
+        }, 1500); // Simulação de tempo de carregamento
     }
 
     resetarValores(): void {
@@ -94,6 +109,6 @@ export class CalcularConsumoEnergiaComponent implements OnInit {
             equipamento.selected = false; 
         });
         this.showResults = false; 
-        alert("Todos os valores foram resetados.");
+        this.toastr.info('Todos os valores foram resetados.', 'Reset!');
     }
 }

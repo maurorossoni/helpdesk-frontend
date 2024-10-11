@@ -185,7 +185,7 @@ h2 {
     font-size: 48px;
     color: #4caf50; /* Cor verde padrão */
     z-index: 10;
-    animation: spinIcon 0.9s linear infinite; /* Faz o ícone girar junto */
+    animation: spinIcon 0.s linear infinite; /* Faz o ícone girar junto */
 }
 
 .loading-icon-container::before {
@@ -196,7 +196,7 @@ h2 {
     border: 8px solid #4caf50;
     border-top: 8px solid transparent;
     border-radius: 50%;
-    animation: spin 0.9s linear infinite;
+    animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
