@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>Cadastro e Manutenção de Equipamentos</h2>
+
+  <!-- Formulário de Cadastro de Equipamento -->
+  <form (ngSubmit)="cadastrarEquipamento()">
+    <div class="form-group">
+      <label for="nome">Nome do Equipamento</label>
+      <input type="text" id="nome" [(ngModel)]="equipamento.nome" name="nome" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+      <label for="potencia">Potência (kW)</label>
+      <input type="number" id="potencia" [(ngModel)]="equipamento.potencia" name="potencia" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn-primary">Cadastrar Equipamento</button>
+    <div *ngIf="mensagemSucesso" class="alert alert-success">{{ mensagemSucesso }}</div>
+    <div *ngIf="mensagemErro" class="alert alert-danger">{{ mensagemErro }}</div>
+  </form>
+
+  <!-- Listagem de Equipamentos -->
+  <h3>Lista de Equipamentos</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Potência (kW)</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let equip of equipamentos">
+        <td><strong>{{ equip.nome }}</strong></td>
+        <td><strong>{{ equip.potencia }}</strong></td>
+        <td>
+          <button class="btn btn-primary" (click)="editarEquipamento(equip)">Editar</button>
+          <button class="btn btn-danger" (click)="excluirEquipamento(equip.id)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

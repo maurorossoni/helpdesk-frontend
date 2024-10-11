@@ -17,7 +17,8 @@ import { TecnicoDeleteComponent } from './components/tecnico/tecnico-delete/tecn
 import { TecnicoListComponent } from './components/tecnico/tecnico-list/tecnico-list.component';
 import { TecnicoUpdateComponent } from './components/tecnico/tecnico-update/tecnico-update.component';
 import { CalcularConsumoEnergiaComponent } from './components/calcular-consumo-energia/calcular-consumo-energia.component'; 
-import { FaturaComponent } from './components/fatura/fatura.component'; // Importação do novo componente
+import { FaturaComponent } from './components/fatura/fatura.component'; 
+import { CadastroEquipamentoComponent } from './components/cadastro-equipamento/cadastro-equipamento.component'; // Adicionando o componente Cadastro Equipamento
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -36,8 +37,9 @@ const routes: Routes = [
       { path: 'chamados/create', component: ChamadoCreateComponent },
       { path: 'chamados/update/:id', component: ChamadoUpdateComponent },
       { path: 'chamados/read/:id', component: ChamadoReadComponent },
-      { path: 'calcular-consumo-energia', component: CalcularConsumoEnergiaComponent }, // Nova rota
-      { path: 'fatura', component: FaturaComponent } // Nova rota para o componente Fatura
+      { path: 'calcular-consumo-energia', component: CalcularConsumoEnergiaComponent }, 
+      { path: 'fatura', component: FaturaComponent }, 
+      { path: 'cadastro-equipamento', component: CadastroEquipamentoComponent } // Adicionando rota para Cadastro Equipamento
     ]
   }
 ];

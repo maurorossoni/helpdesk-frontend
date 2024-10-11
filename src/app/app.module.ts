@@ -19,15 +19,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxMaskModule } from 'ngx-mask';
+
+// Componentes
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TecnicoListComponent } from './components/tecnico/tecnico-list/tecnico-list.component';
 import { LoginComponent } from './components/login/login.component';
-import { ToastrModule } from 'ngx-toastr';
-import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecnico-create.component';
-import { NgxMaskModule } from 'ngx-mask';
 import { TecnicoUpdateComponent } from './components/tecnico/tecnico-update/tecnico-update.component';
 import { TecnicoDeleteComponent } from './components/tecnico/tecnico-delete/tecnico-delete.component';
 import { ClienteCreateComponent } from './components/cliente/cliente-create/cliente-create.component';
@@ -39,9 +41,9 @@ import { ChamadoCreateComponent } from './components/chamado/chamado-create/cham
 import { ChamadoUpdateComponent } from './components/chamado/chamado-update/chamado-update.component';
 import { ChamadoReadComponent } from './components/chamado/chamado-read/chamado-read.component';
 import { CalcularConsumoEnergiaComponent } from './components/calcular-consumo-energia/calcular-consumo-energia.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DialogResultComponent } from './dialog-result/dialog-result.component';
-import { FaturaComponent } from './components/fatura/fatura.component'; 
+import { FaturaComponent } from './components/fatura/fatura.component';
+import { CadastroEquipamentoComponent } from './components/cadastro-equipamento/cadastro-equipamento.component'; // Adicione o novo componente aqui
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -63,8 +65,8 @@ import { FaturaComponent } from './components/fatura/fatura.component';
     ChamadoUpdateComponent,
     ChamadoReadComponent,
     CalcularConsumoEnergiaComponent,
-    DialogResultComponent,
-    FaturaComponent
+    FaturaComponent,
+    CadastroEquipamentoComponent // Declarando o novo componente de cadastro de equipamento
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,7 @@ import { FaturaComponent } from './components/fatura/fatura.component';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatProgressSpinnerModule, // Adicione esta linha
+    MatProgressSpinnerModule, 
     ToastrModule.forRoot({
       timeOut: 4000,
       closeButton: true,
