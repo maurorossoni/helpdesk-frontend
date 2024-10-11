@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog'; // Importar MatDialog
 import { EquipamentoService } from '../../services/equipamento.service';
 import { Equipamento } from '../../models/equipamento';
+import { DialogConfirmacaoComponent } from '../dialog-confirmacao/dialog-confirmacao.component'; // Importar o diálogo de confirmação
 
 @Component({
   selector: 'app-cadastro-equipamento',
@@ -9,24 +11,23 @@ import { Equipamento } from '../../models/equipamento';
 })
 export class CadastroEquipamentoComponent implements OnInit {
 
-  equipamentos: Equipamento[] = []; // Lista de equipamentos
+  equipamentos: Equipamento[] = [];
   equipamento: Equipamento = {
     id: null,
     nome: '',
     potencia: null,
-    tipo: '' // Tipo é opcional
+    tipo: ''
   };
-  editando: boolean = false; // Controla se estamos editando um equipamento
+  editando: boolean = false;
   mensagemSucesso: string = '';
   mensagemErro: string = '';
 
-  constructor(private equipamentoService: EquipamentoService) { }
+  constructor(private equipamentoService: EquipamentoService, public dialog: MatDialog) { } // Injetar MatDialog
 
   ngOnInit(): void {
     this.listarEquipamentos();
   }
 
-  // Listar equipamentos
   listarEquipamentos(): void {
     this.equipamentoService.findAll().subscribe({
       next: (res) => {
@@ -39,16 +40,14 @@ export class CadastroEquipamentoComponent implements OnInit {
     });
   }
 
-  // Cadastrar novo equipamento ou editar
   cadastrarEquipamento(): void {
-    if (this.equipamento.nome && this.equipamento.potencia) { // "tipo" não é mais obrigatório
+    if (this.equipamento.nome && this.equipamento.potencia) {
       if (this.editando) {
-        // Atualizando o equipamento
         this.equipamentoService.update(this.equipamento).subscribe({
           next: (res) => {
             this.mensagemSucesso = 'Equipamento atualizado com sucesso!';
             this.mensagemErro = '';
-            this.listarEquipamentos(); // Recarrega a lista de equipamentos
+            this.listarEquipamentos();
             this.limparFormulario();
           },
           error: (err) => {
@@ -58,7 +57,6 @@ export class CadastroEquipamentoComponent implements OnInit {
           }
         });
       } else {
-        // Criando novo equipamento
         this.equipamentoService.create(this.equipamento).subscribe({
           next: (res) => {
             this.mensagemSucesso = 'Equipamento cadastrado com sucesso!';
@@ -79,34 +77,37 @@ export class CadastroEquipamentoComponent implements OnInit {
     }
   }
 
-  // Editar equipamento
   editarEquipamento(equip: Equipamento): void {
-    this.equipamento = { ...equip }; // Clonar o equipamento para edição
+    this.equipamento = { ...equip };
     this.editando = true;
   }
 
-  // Excluir equipamento
   excluirEquipamento(id: number): void {
-    this.equipamentoService.delete(id).subscribe({
-      next: (res) => {
-        this.mensagemSucesso = 'Equipamento excluído com sucesso!';
-        this.mensagemErro = '';
-        this.listarEquipamentos();
-      },
-      error: (err) => {
-        this.mensagemErro = 'Erro ao excluir equipamento.';
-        console.error(err);
+    const dialogRef = this.dialog.open(DialogConfirmacaoComponent); // Abrir o diálogo de confirmação
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { // Se o usuário confirmou a exclusão
+        this.equipamentoService.delete(id).subscribe({
+          next: (res) => {
+            this.mensagemSucesso = 'Equipamento excluído com sucesso!';
+            this.mensagemErro = '';
+            this.listarEquipamentos();
+          },
+          error: (err) => {
+            this.mensagemErro = 'Erro ao excluir equipamento.';
+            console.error(err);
+          }
+        });
       }
     });
   }
 
-  // Limpar o formulário após salvar ou cancelar edição
   limparFormulario(): void {
     this.equipamento = {
       id: null,
       nome: '',
       potencia: null,
-      tipo: '' // Tipo ainda é opcional no formulário
+      tipo: ''
     };
     this.editando = false;
   }

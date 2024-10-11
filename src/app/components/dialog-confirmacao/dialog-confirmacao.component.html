@@ -1,0 +1,11 @@
+<div class="dialog-container">
+  <h2 class="dialog-title">Confirmação</h2>
+  <p class="dialog-message">
+    Tem certeza que deseja excluir o equipamento <strong>{{ data.nomeEquipamento }}</strong>?
+  </p>
+
+  <div class="dialog-actions">
+    <button mat-button class="btn-confirm" (click)="confirmar()">Confirmar</button>
+    <button mat-button class="btn-cancel" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

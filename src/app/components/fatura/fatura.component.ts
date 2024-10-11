@@ -11,7 +11,7 @@ export class FaturaComponent implements OnInit {
     custoTotal: number = 0; // Custo total
     equipamentos: any[] = []; // Lista de equipamentos selecionados
     tempoUso: { [id: number]: number } = {}; // Dicionário para armazenar o tempo de uso
-    valorKwh: number = 0.59290; // Valor do kWh
+    valorKwh: number = 0.59290; // Valor do kWh, faixa residencial b, braço do norte.
     metaConsumo: number = 0; // Meta de consumo definida pelo usuário
     metaInput: number = 0; // Valor inserido pelo usuário no modal
     metaDefinida: boolean = false; // Controle para exibir o botão "Otimizar Consumo"
@@ -36,7 +36,7 @@ export class FaturaComponent implements OnInit {
     }
 
     voltar(): void {
-        window.history.back(); // Volta para a página anterior
+        window.history.back(); // Volta para a pag anterior
     }
 
     // Métodos para calcular o consumo diário e mensal
@@ -102,7 +102,7 @@ export class FaturaComponent implements OnInit {
         }
 
         let margem = totalConsumoMensal - this.metaConsumo;
-        const equipamentosEssenciais = ['Geladeira']; // Equipamentos essenciais que não podem ser alterados
+        const equipamentosEssenciais = ['Geladeira', 'Freezer']; // Equipamentos essenciais que não podem ser alterados
 
         let consumoProporcional = 0;
 

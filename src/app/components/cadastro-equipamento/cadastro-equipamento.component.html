@@ -19,7 +19,6 @@
   </form>
 
   <!-- Listagem de Equipamentos -->
-  <h3>Lista de Equipamentos</h3>
   <table class="table">
     <thead>
       <tr>
@@ -30,11 +29,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let equip of equipamentos">
-        <td><strong>{{ equip.nome }}</strong></td>
-        <td><strong>{{ equip.potencia }}</strong></td>
+        <td>{{ equip.nome }}</td>
+        <td>{{ equip.potencia }}</td>
         <td>
-          <button class="btn btn-primary" (click)="editarEquipamento(equip)">Editar</button>
-          <button class="btn btn-danger" (click)="excluirEquipamento(equip.id)">Excluir</button>
+          <button class="btn-primary" (click)="editarEquipamento(equip)">Editar</button>
+          <button class="btn-danger" (click)="excluirEquipamento(equip.id)">Excluir</button> <!-- Corrigido aqui -->
         </td>
       </tr>
     </tbody>

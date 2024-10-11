@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog'; // Importando MatDialogModule
 import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
 
@@ -42,7 +43,9 @@ import { ChamadoUpdateComponent } from './components/chamado/chamado-update/cham
 import { ChamadoReadComponent } from './components/chamado/chamado-read/chamado-read.component';
 import { CalcularConsumoEnergiaComponent } from './components/calcular-consumo-energia/calcular-consumo-energia.component';
 import { FaturaComponent } from './components/fatura/fatura.component';
-import { CadastroEquipamentoComponent } from './components/cadastro-equipamento/cadastro-equipamento.component'; // Adicione o novo componente aqui
+import { CadastroEquipamentoComponent } from './components/cadastro-equipamento/cadastro-equipamento.component'; // Componente de cadastro de equipamentos
+import { DialogConfirmacaoComponent } from './components/dialog-confirmacao/dialog-confirmacao.component'; // Componente de confirmação
+
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
@@ -66,7 +69,8 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     ChamadoReadComponent,
     CalcularConsumoEnergiaComponent,
     FaturaComponent,
-    CadastroEquipamentoComponent // Declarando o novo componente de cadastro de equipamento
+    CadastroEquipamentoComponent,
+    DialogConfirmacaoComponent // Adicionando o DialogConfirmacaoComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,8 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatProgressSpinnerModule, 
+    MatProgressSpinnerModule,
+    MatDialogModule, // Adicionando o MatDialogModule para o suporte ao diálogo
     ToastrModule.forRoot({
       timeOut: 4000,
       closeButton: true,
