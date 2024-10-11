@@ -27,6 +27,12 @@
                 <td><strong>{{ arredondarConsumoTotalMensal() }}</strong></td>
                 <td><strong>{{ arredondarCustoTotalMensal() }}</strong></td>
             </tr>
+            <tr>
+                <td colspan="5" style="text-align: right;">
+                    <label for="valorKwh">Valor cobrado por kWh:</label>
+                    <input type="number" [(ngModel)]="valorKwh" id="valorKwh" step="0.0001" style="width: 80px;" />
+                </td>
+            </tr>
         </tfoot>
     </table>
     <div class="button-group">

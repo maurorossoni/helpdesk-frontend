@@ -146,6 +146,13 @@ export class FaturaComponent implements OnInit {
         }
     }
 
+        // Função para atualizar o custo mensal ao alterar o valor do kWh
+          atualizarCustoMensal(): void {
+        this.equipamentos.forEach(equipamento => {
+            equipamento.custo = this.calcularCustoMensal(equipamento.potencia, this.tempoUso[equipamento.id]);
+        });
+        }
+
     // Função para exibir a mensagem de notificação
     mostrarMensagem(msg: string): void {
         this.mensagem = msg;
